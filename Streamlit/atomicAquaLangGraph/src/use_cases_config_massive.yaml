@@ -1,0 +1,3799 @@
+use_cases:
+  spoofing_detection:
+    keywords:
+    - spoofing
+    - spoof
+    - spoofed
+    - fake signal
+    - spoofing detected
+    - spoofing detection
+    - any spoofing
+    - check spoofing
+    - detect spoofing
+    - spoofer present
+    - spoofing event
+    - spoofing attack
+    log_type: RXSTATUS
+    field_index: 4
+    bit_position: 9
+    analysis_type: bit_check
+    description: Detect spoofing events from RXSTATUS receiver status word (bit 9)
+    unit: null
+  jamming_detection:
+    keywords:
+    - jamming
+    - jammer
+    - jam
+    - jammed
+    - jamming detected
+    - jamming detection
+    - any jamming
+    - check jamming
+    - detect jamming
+    - jammer present
+    - jamming event
+    log_type: RXSTATUS
+    field_index: 4
+    bit_position: 15
+    analysis_type: bit_check
+    description: Detect jamming events from RXSTATUS receiver status word (bit 15)
+    unit: null
+  antenna_error:
+    keywords:
+    - antenna
+    - antenna error
+    - antenna issue
+    - antenna problem
+    - antenna fault
+    - antenna status
+    - antenna open
+    - antenna short
+    - antenna disconnected
+    - antenna failure
+    - antenna power
+    log_type: RXSTATUS
+    field_index: 4
+    bit_position: 5
+    analysis_type: bit_check
+    description: Detect antenna errors from RXSTATUS (bit 5 - antenna not powered/open/short)
+    unit: null
+  interference_detection:
+    keywords:
+    - interference
+    - interfere
+    - RF interference
+    - spectrum
+    - interference detected
+    - interference detection
+    - any interference
+    - check interference
+    - detect interference
+    - rf jamming
+    - narrowband interference
+    - wideband interference
+    log_type: ITDETECTSTATUS
+    field_index: 2
+    bit_position: null
+    analysis_type: raw_listing
+    description: Detect RF interference from ITDETECTSTATUS log (full analysis)
+    unit: null
+    special_handler: interference_analysis
+  height_analysis:
+    keywords:
+    - height
+    - altitude
+    - elevation
+    - vertical
+    - height field
+    - altitude field
+    - minimum height
+    - maximum height
+    - average height
+    - min height
+    - max height
+    - lowest height
+    - highest height
+    log_type: BESTPOS
+    field_index: 6
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze height/altitude from BESTPOS
+    unit: m
+  latitude_analysis:
+    keywords:
+    - latitude
+    - lat
+    - north
+    - south
+    - latitude field
+    - minimum latitude
+    - maximum latitude
+    - average latitude
+    log_type: BESTPOS
+    field_index: 4
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze latitude from BESTPOS
+    unit: degrees
+  longitude_analysis:
+    keywords:
+    - longitude
+    - lon
+    - long
+    - east
+    - west
+    - longitude field
+    - minimum longitude
+    - maximum longitude
+    - average longitude
+    log_type: BESTPOS
+    field_index: 5
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze longitude from BESTPOS
+    unit: degrees
+  velocity_analysis:
+    keywords:
+    - velocity
+    - speed
+    - horizontal speed
+    - ground speed
+    - minimum velocity
+    - maximum velocity
+    - average velocity
+    - min speed
+    - max speed
+    - fastest
+    - slowest
+    log_type: BESTVEL
+    field_index: 6
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze horizontal velocity from BESTVEL
+    unit: m/s
+  signal_quality:
+    keywords:
+    - signal
+    - signal quality
+    - signal strength
+    - C/No
+    - CNO
+    - cno
+    - carrier to noise
+    - signal level
+    - signal power
+    - scintillation
+    - signal fade
+    - signal degradation
+    - minimum signal
+    - maximum signal
+    - lowest signal
+    - weakest signal
+    - average signal
+    - mean signal
+    log_type: TRACKSTAT
+    field_index: 10
+    bit_position: null
+    analysis_type: raw_listing
+    special_handler: trackstat_cno_analysis
+    description: Analyze signal quality (C/No) from TRACKSTAT - complex multi-satellite
+      log
+    unit: dB-Hz
+  highest_cno:
+    keywords:
+    - highest cno
+    - highest c/no
+    - maximum cno
+    - maximum c/no
+    - max cno
+    - max c/no
+    - best signal
+    - strongest signal
+    - highest signal
+    - peak signal
+    log_type: TRACKSTAT
+    field_index: 10
+    bit_position: null
+    analysis_type: raw_listing
+    special_handler: trackstat_cno_max
+    description: Find highest C/No value from TRACKSTAT
+    unit: dB-Hz
+  lowest_cno:
+    keywords:
+    - lowest cno
+    - lowest c/no
+    - minimum cno
+    - minimum c/no
+    - min cno
+    - min c/no
+    - worst signal
+    - weakest signal
+    log_type: TRACKSTAT
+    field_index: 10
+    bit_position: null
+    analysis_type: raw_listing
+    special_handler: trackstat_cno_min
+    description: Find lowest C/No value from TRACKSTAT
+    unit: dB-Hz
+  roll_analysis:
+    keywords:
+    - roll
+    - roll angle
+    - bank
+    - bank angle
+    - roll rate
+    - minimum roll
+    - maximum roll
+    - average roll
+    log_type: INSPVA
+    field_index: 4
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze roll angle from INSPVA
+    unit: degrees
+  pitch_analysis:
+    keywords:
+    - pitch
+    - pitch angle
+    - nose up
+    - nose down
+    - pitch rate
+    - minimum pitch
+    - maximum pitch
+    - average pitch
+    log_type: INSPVA
+    field_index: 5
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze pitch angle from INSPVA
+    unit: degrees
+  azimuth_analysis:
+    keywords:
+    - azimuth
+    - heading
+    - direction
+    - course
+    - bearing
+    - true heading
+    - magnetic heading
+    - azimuth angle
+    log_type: INSPVA
+    field_index: 6
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze azimuth/heading from INSPVA
+    unit: degrees
+  heading_analysis:
+    keywords:
+    - heading
+    - heading2
+    - dual antenna heading
+    - baseline heading
+    - antenna heading
+    - heading angle
+    - heading accuracy
+    log_type: HEADING2
+    field_index: 4
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze heading from HEADING2
+    unit: degrees
+  bestpos_overview:
+    keywords:
+    - overview
+    - summary
+    - summarize
+    - show me
+    - what's in
+    - analyze file
+    - file overview
+    - file summary
+    - bestpos overview
+    - position overview
+    - position summary
+    log_type: BESTPOS
+    field_index: 2
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show overview/summary of BESTPOS position records
+    unit: null
+  signal_types_available:
+    keywords:
+    - what signal types
+    - which signal types
+    - available signal types
+    - signal types in file
+    - what signals
+    - which signals
+    - available signals
+    - list signal types
+    - show signal types
+    - signal type list
+    - constellation types
+    - what constellations
+    - which constellations
+    log_type: CHANCONFIGLIST
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    special_handler: signal_types_list
+    description: List all signal types available in the file from CHANCONFIGLIST
+    unit: null
+  gps_signals:
+    keywords:
+    - gps signals
+    - gps signal types
+    - what gps
+    - which gps
+    - gps available
+    log_type: CHANCONFIGLIST
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    special_handler: constellation_signals
+    description: List GPS signal types from CHANCONFIGLIST
+    unit: null
+    filter_constellation: GPS
+  glonass_signals:
+    keywords:
+    - glonass signals
+    - glonass signal types
+    - what glonass
+    - which glonass
+    - glonass available
+    log_type: CHANCONFIGLIST
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    special_handler: constellation_signals
+    description: List GLONASS signal types from CHANCONFIGLIST
+    unit: null
+    filter_constellation: GLONASS
+  galileo_signals:
+    keywords:
+    - galileo signals
+    - galileo signal types
+    - what galileo
+    - which galileo
+    - galileo available
+    log_type: CHANCONFIGLIST
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    special_handler: constellation_signals
+    description: List GALILEO signal types from CHANCONFIGLIST
+    unit: null
+    filter_constellation: GALILEO
+  beidou_signals:
+    keywords:
+    - beidou signals
+    - beidou signal types
+    - what beidou
+    - which beidou
+    - beidou available
+    log_type: CHANCONFIGLIST
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    special_handler: constellation_signals
+    description: List BEIDOU signal types from CHANCONFIGLIST
+    unit: null
+    filter_constellation: BEIDOU
+  qzss_signals:
+    keywords:
+    - qzss signals
+    - qzss signal types
+    - what qzss
+    - which qzss
+    - qzss available
+    log_type: CHANCONFIGLIST
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    special_handler: constellation_signals
+    description: List QZSS signal types from CHANCONFIGLIST
+    unit: null
+    filter_constellation: QZSS
+  sbas_signals:
+    keywords:
+    - sbas signals
+    - sbas signal types
+    - what sbas
+    - which sbas
+    - sbas available
+    log_type: CHANCONFIGLIST
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    special_handler: constellation_signals
+    description: List SBAS signal types from CHANCONFIGLIST
+    unit: null
+    filter_constellation: SBAS
+  navic_signals:
+    keywords:
+    - navic signals
+    - navic signal types
+    - what navic
+    - which navic
+    - navic available
+    log_type: CHANCONFIGLIST
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    special_handler: constellation_signals
+    description: List NAVIC signal types from CHANCONFIGLIST
+    unit: null
+    filter_constellation: NAVIC
+  itbandpassfiltbank_listing:
+    keywords:
+    - show itbandpassfiltbank
+    - list itbandpassfiltbank
+    - itbandpassfiltbank records
+    - itbandpassfiltbank data
+    - get itbandpassfiltbank
+    log_type: ITBANDPASSFILTBANK
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show ITBANDPASSFILTBANK records
+    unit: null
+  itspectralanalysis_listing:
+    keywords:
+    - show itspectralanalysis
+    - list itspectralanalysis
+    - itspectralanalysis records
+    - itspectralanalysis data
+    - get itspectralanalysis
+    log_type: ITSPECTRALANALYSIS
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show ITSPECTRALANALYSIS records
+    unit: null
+  avepos_listing:
+    keywords:
+    - show avepos
+    - list avepos
+    - avepos records
+    - avepos data
+    - get avepos
+    log_type: AVEPOS
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show AVEPOS records
+    unit: null
+  time_listing:
+    keywords:
+    - show time
+    - list time
+    - time records
+    - time data
+    - get time
+    log_type: TIME
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show TIME records
+    unit: null
+  satvis2_listing:
+    keywords:
+    - show satvis2
+    - list satvis2
+    - satvis2 records
+    - satvis2 data
+    - get satvis2
+    log_type: SATVIS2
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show SATVIS2 records
+    unit: null
+  tractstat_listing:
+    keywords:
+    - show tractstat
+    - list tractstat
+    - tractstat records
+    - tractstat data
+    - get tractstat
+    log_type: TRACTSTAT
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show TRACTSTAT records
+    unit: null
+  bestsats_listing:
+    keywords:
+    - show bestsats
+    - list bestsats
+    - bestsats records
+    - bestsats data
+    - get bestsats
+    log_type: BESTSATS
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show BESTSATS records
+    unit: null
+  version_listing:
+    keywords:
+    - show version
+    - list version
+    - version records
+    - version data
+    - get version
+    log_type: VERSION
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show VERSION records
+    unit: null
+  modelfeature_listing:
+    keywords:
+    - show modelfeature
+    - list modelfeature
+    - modelfeature records
+    - modelfeature data
+    - get modelfeature
+    log_type: MODELFEATURE
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show MODELFEATURE records
+    unit: null
+  hwmonitor_listing:
+    keywords:
+    - show hwmonitor
+    - list hwmonitor
+    - hwmonitor records
+    - hwmonitor data
+    - get hwmonitor
+    log_type: HWMONITOR
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show HWMONITOR records
+    unit: null
+  filesystemcapacity_listing:
+    keywords:
+    - show filesystemcapacity
+    - list filesystemcapacity
+    - filesystemcapacity records
+    - filesystemcapacity data
+    - get filesystemcapacity
+    log_type: FILESYSTEMCAPACITY
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show FILESYSTEMCAPACITY records
+    unit: null
+  filelist_listing:
+    keywords:
+    - show filelist
+    - list filelist
+    - filelist records
+    - filelist data
+    - get filelist
+    log_type: FILELIST
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show FILELIST records
+    unit: null
+  filesystemstatus_listing:
+    keywords:
+    - show filesystemstatus
+    - list filesystemstatus
+    - filesystemstatus records
+    - filesystemstatus data
+    - get filesystemstatus
+    log_type: FILESYSTEMSTATUS
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show FILESYSTEMSTATUS records
+    unit: null
+  ipservice_listing:
+    keywords:
+    - show ipservice
+    - list ipservice
+    - ipservice records
+    - ipservice data
+    - get ipservice
+    log_type: IPSERVICE
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show IPSERVICE records
+    unit: null
+  filetransferstatus_listing:
+    keywords:
+    - show filetransferstatus
+    - list filetransferstatus
+    - filetransferstatus records
+    - filetransferstatus data
+    - get filetransferstatus
+    log_type: FILETRANSFERSTATUS
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show FILETRANSFERSTATUS records
+    unit: null
+  itpsdfinal_listing:
+    keywords:
+    - show itpsdfinal
+    - list itpsdfinal
+    - itpsdfinal records
+    - itpsdfinal data
+    - get itpsdfinal
+    log_type: ITPSDFINAL
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show ITPSDFINAL records
+    unit: null
+  itpsddetect_listing:
+    keywords:
+    - show itpsddetect
+    - list itpsddetect
+    - itpsddetect records
+    - itpsddetect data
+    - get itpsddetect
+    log_type: ITPSDDETECT
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show ITPSDDETECT records
+    unit: null
+  authcodes_listing:
+    keywords:
+    - show authcodes
+    - list authcodes
+    - authcodes records
+    - authcodes data
+    - get authcodes
+    log_type: AUTHCODES
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show AUTHCODES records
+    unit: null
+  assignlbandbeam_listing:
+    keywords:
+    - show assignlbandbeam
+    - list assignlbandbeam
+    - assignlbandbeam records
+    - assignlbandbeam data
+    - get assignlbandbeam
+    log_type: ASSIGNLBANDBEAM
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show ASSIGNLBANDBEAM records
+    unit: null
+  sbascontrol_listing:
+    keywords:
+    - show sbascontrol
+    - list sbascontrol
+    - sbascontrol records
+    - sbascontrol data
+    - get sbascontrol
+    log_type: SBASCONTROL
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show SBASCONTROL records
+    unit: null
+  interfacemode_listing:
+    keywords:
+    - show interfacemode
+    - list interfacemode
+    - interfacemode records
+    - interfacemode data
+    - get interfacemode
+    log_type: INTERFACEMODE
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show INTERFACEMODE records
+    unit: null
+  generatertk_listing:
+    keywords:
+    - show generatertk
+    - list generatertk
+    - generatertk records
+    - generatertk data
+    - get generatertk
+    log_type: GENERATERTK
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show GENERATERTK records
+    unit: null
+  generatediff_listing:
+    keywords:
+    - show generatediff
+    - list generatediff
+    - generatediff records
+    - generatediff data
+    - get generatediff
+    log_type: GENERATEDIFF
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show GENERATEDIFF records
+    unit: null
+  portstats_listing:
+    keywords:
+    - show portstats
+    - list portstats
+    - portstats records
+    - portstats data
+    - get portstats
+    log_type: PORTSTATS
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show PORTSTATS records
+    unit: null
+  ntripconfig_listing:
+    keywords:
+    - show ntripconfig
+    - list ntripconfig
+    - ntripconfig records
+    - ntripconfig data
+    - get ntripconfig
+    log_type: NTRIPCONFIG
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show NTRIPCONFIG records
+    unit: null
+  validmodels_listing:
+    keywords:
+    - show validmodels
+    - list validmodels
+    - validmodels records
+    - validmodels data
+    - get validmodels
+    log_type: VALIDMODELS
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show VALIDMODELS records
+    unit: null
+  inspvax_listing:
+    keywords:
+    - show inspvax
+    - list inspvax
+    - inspvax records
+    - inspvax data
+    - get inspvax
+    log_type: INSPVAX
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show INSPVAX records
+    unit: null
+  satel4info_listing:
+    keywords:
+    - show satel4info
+    - list satel4info
+    - satel4info records
+    - satel4info data
+    - get satel4info
+    log_type: SATEL4INFO
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show SATEL4INFO records
+    unit: null
+  satel9info_listing:
+    keywords:
+    - show satel9info
+    - list satel9info
+    - satel9info records
+    - satel9info data
+    - get satel9info
+    log_type: SATEL9INFO
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show SATEL9INFO records
+    unit: null
+  serialconfig_listing:
+    keywords:
+    - show serialconfig
+    - list serialconfig
+    - serialconfig records
+    - serialconfig data
+    - get serialconfig
+    log_type: SERIALCONFIG
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show SERIALCONFIG records
+    unit: null
+  lbandbeamtable_listing:
+    keywords:
+    - show lbandbeamtable
+    - list lbandbeamtable
+    - lbandbeamtable records
+    - lbandbeamtable data
+    - get lbandbeamtable
+    log_type: LBANDBEAMTABLE
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show LBANDBEAMTABLE records
+    unit: null
+  loglist_listing:
+    keywords:
+    - show loglist
+    - list loglist
+    - loglist records
+    - loglist data
+    - get loglist
+    log_type: LOGLIST
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show LOGLIST records
+    unit: null
+  autosurvey_listing:
+    keywords:
+    - show autosurvey
+    - list autosurvey
+    - autosurvey records
+    - autosurvey data
+    - get autosurvey
+    log_type: AUTOSURVEY
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show AUTOSURVEY records
+    unit: null
+  posave_listing:
+    keywords:
+    - show posave
+    - list posave
+    - posave records
+    - posave data
+    - get posave
+    log_type: POSAVE
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show POSAVE records
+    unit: null
+  icomconfig_listing:
+    keywords:
+    - show icomconfig
+    - list icomconfig
+    - icomconfig records
+    - icomconfig data
+    - get icomconfig
+    log_type: ICOMCONFIG
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show ICOMCONFIG records
+    unit: null
+  connectimu_listing:
+    keywords:
+    - show connectimu
+    - list connectimu
+    - connectimu records
+    - connectimu data
+    - get connectimu
+    log_type: CONNECTIMU
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show CONNECTIMU records
+    unit: null
+  setinsrotation_listing:
+    keywords:
+    - show setinsrotation
+    - list setinsrotation
+    - setinsrotation records
+    - setinsrotation data
+    - get setinsrotation
+    log_type: SETINSROTATION
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show SETINSROTATION records
+    unit: null
+  setinstranslation_listing:
+    keywords:
+    - show setinstranslation
+    - list setinstranslation
+    - setinstranslation records
+    - setinstranslation data
+    - get setinstranslation
+    log_type: SETINSTRANSLATION
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show SETINSTRANSLATION records
+    unit: null
+  setimutoantoffset_listing:
+    keywords:
+    - show setimutoantoffset
+    - list setimutoantoffset
+    - setimutoantoffset records
+    - setimutoantoffset data
+    - get setimutoantoffset
+    log_type: SETIMUTOANTOFFSET
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show SETIMUTOANTOFFSET records
+    unit: null
+  setimutoantoffset2_listing:
+    keywords:
+    - show setimutoantoffset2
+    - list setimutoantoffset2
+    - setimutoantoffset2 records
+    - setimutoantoffset2 data
+    - get setimutoantoffset2
+    log_type: SETIMUTOANTOFFSET2
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show SETIMUTOANTOFFSET2 records
+    unit: null
+  setimuorientation_listing:
+    keywords:
+    - show setimuorientation
+    - list setimuorientation
+    - setimuorientation records
+    - setimuorientation data
+    - get setimuorientation
+    log_type: SETIMUORIENTATION
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show SETIMUORIENTATION records
+    unit: null
+  vehiclebodyrotation_listing:
+    keywords:
+    - show vehiclebodyrotation
+    - list vehiclebodyrotation
+    - vehiclebodyrotation records
+    - vehiclebodyrotation data
+    - get vehiclebodyrotation
+    log_type: VEHICLEBODYROTATION
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show VEHICLEBODYROTATION records
+    unit: null
+  applyvbr_listing:
+    keywords:
+    - show applyvbr
+    - list applyvbr
+    - applyvbr records
+    - applyvbr data
+    - get applyvbr
+    log_type: APPLYVBR
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show APPLYVBR records
+    unit: null
+  filerotateconfig_listing:
+    keywords:
+    - show filerotateconfig
+    - list filerotateconfig
+    - filerotateconfig records
+    - filerotateconfig data
+    - get filerotateconfig
+    log_type: FILEROTATECONFIG
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show FILEROTATECONFIG records
+    unit: null
+  dualantennaalign_listing:
+    keywords:
+    - show dualantennaalign
+    - list dualantennaalign
+    - dualantennaalign records
+    - dualantennaalign data
+    - get dualantennaalign
+    log_type: DUALANTENNAALIGN
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show DUALANTENNAALIGN records
+    unit: null
+  wifialignautomation_listing:
+    keywords:
+    - show wifialignautomation
+    - list wifialignautomation
+    - wifialignautomation records
+    - wifialignautomation data
+    - get wifialignautomation
+    log_type: WIFIALIGNAUTOMATION
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show WIFIALIGNAUTOMATION records
+    unit: null
+  headingoffset_listing:
+    keywords:
+    - show headingoffset
+    - list headingoffset
+    - headingoffset records
+    - headingoffset data
+    - get headingoffset
+    log_type: HEADINGOFFSET
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show HEADINGOFFSET records
+    unit: null
+  softloadstatus_listing:
+    keywords:
+    - show softloadstatus
+    - list softloadstatus
+    - softloadstatus records
+    - softloadstatus data
+    - get softloadstatus
+    log_type: SOFTLOADSTATUS
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show SOFTLOADSTATUS records
+    unit: null
+  lbandtrackstat_listing:
+    keywords:
+    - show lbandtrackstat
+    - list lbandtrackstat
+    - lbandtrackstat records
+    - lbandtrackstat data
+    - get lbandtrackstat
+    log_type: LBANDTRACKSTAT
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show LBANDTRACKSTAT records
+    unit: null
+  insposx_listing:
+    keywords:
+    - show insposx
+    - list insposx
+    - insposx records
+    - insposx data
+    - get insposx
+    log_type: INSPOSX
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show INSPOSX records
+    unit: null
+  wifimode_listing:
+    keywords:
+    - show wifimode
+    - list wifimode
+    - wifimode records
+    - wifimode data
+    - get wifimode
+    log_type: WIFIMODE
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show WIFIMODE records
+    unit: null
+  skdetect_listing:
+    keywords:
+    - show skdetect
+    - list skdetect
+    - skdetect records
+    - skdetect data
+    - get skdetect
+    log_type: SKDETECT
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show SKDETECT records
+    unit: null
+  skcalibratestatus_listing:
+    keywords:
+    - show skcalibratestatus
+    - list skcalibratestatus
+    - skcalibratestatus records
+    - skcalibratestatus data
+    - get skcalibratestatus
+    log_type: SKCALIBRATESTATUS
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show SKCALIBRATESTATUS records
+    unit: null
+  wifiapsettings_listing:
+    keywords:
+    - show wifiapsettings
+    - list wifiapsettings
+    - wifiapsettings records
+    - wifiapsettings data
+    - get wifiapsettings
+    log_type: WIFIAPSETTINGS
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show WIFIAPSETTINGS records
+    unit: null
+  ipconfig_listing:
+    keywords:
+    - show ipconfig
+    - list ipconfig
+    - ipconfig records
+    - ipconfig data
+    - get ipconfig
+    log_type: IPCONFIG
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show IPCONFIG records
+    unit: null
+  dnsconfig_listing:
+    keywords:
+    - show dnsconfig
+    - list dnsconfig
+    - dnsconfig records
+    - dnsconfig data
+    - get dnsconfig
+    log_type: DNSCONFIG
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show DNSCONFIG records
+    unit: null
+  satel4config_listing:
+    keywords:
+    - show satel4config
+    - list satel4config
+    - satel4config records
+    - satel4config data
+    - get satel4config
+    log_type: SATEL4CONFIG
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show SATEL4CONFIG records
+    unit: null
+  satelstatus_listing:
+    keywords:
+    - show satelstatus
+    - list satelstatus
+    - satelstatus records
+    - satelstatus data
+    - get satelstatus
+    log_type: SATELSTATUS
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show SATELSTATUS records
+    unit: null
+  sateldetect_listing:
+    keywords:
+    - show sateldetect
+    - list sateldetect
+    - sateldetect records
+    - sateldetect data
+    - get sateldetect
+    log_type: SATELDETECT
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show SATELDETECT records
+    unit: null
+  terrastar_listing:
+    keywords:
+    - show terrastar
+    - list terrastar
+    - terrastar records
+    - terrastar data
+    - get terrastar
+    log_type: TERRASTAR
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show TERRASTAR records
+    unit: null
+  oceanixinfo_listing:
+    keywords:
+    - show oceanixinfo
+    - list oceanixinfo
+    - oceanixinfo records
+    - oceanixinfo data
+    - get oceanixinfo
+    log_type: OCEANIXINFO
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show OCEANIXINFO records
+    unit: null
+  veriposinfo_listing:
+    keywords:
+    - show veriposinfo
+    - list veriposinfo
+    - veriposinfo records
+    - veriposinfo data
+    - get veriposinfo
+    log_type: VERIPOSINFO
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show VERIPOSINFO records
+    unit: null
+  oceanixstatus_listing:
+    keywords:
+    - show oceanixstatus
+    - list oceanixstatus
+    - oceanixstatus records
+    - oceanixstatus data
+    - get oceanixstatus
+    log_type: OCEANIXSTATUS
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show OCEANIXSTATUS records
+    unit: null
+  terrastarstatus_listing:
+    keywords:
+    - show terrastarstatus
+    - list terrastarstatus
+    - terrastarstatus records
+    - terrastarstatus data
+    - get terrastarstatus
+    log_type: TERRASTARSTATUS
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show TERRASTARSTATUS records
+    unit: null
+  alignautomation_listing:
+    keywords:
+    - show alignautomation
+    - list alignautomation
+    - alignautomation records
+    - alignautomation data
+    - get alignautomation
+    log_type: ALIGNAUTOMATION
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show ALIGNAUTOMATION records
+    unit: null
+  rxstatusevent_listing:
+    keywords:
+    - show rxstatusevent
+    - list rxstatusevent
+    - rxstatusevent records
+    - rxstatusevent data
+    - get rxstatusevent
+    log_type: RXSTATUSEVENT
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show RXSTATUSEVENT records
+    unit: null
+  giiicardstatus_listing:
+    keywords:
+    - show giiicardstatus
+    - list giiicardstatus
+    - giiicardstatus records
+    - giiicardstatus data
+    - get giiicardstatus
+    log_type: GIIICARDSTATUS
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show GIIICARDSTATUS records
+    unit: null
+  giiitimesolution_listing:
+    keywords:
+    - show giiitimesolution
+    - list giiitimesolution
+    - giiitimesolution records
+    - giiitimesolution data
+    - get giiitimesolution
+    log_type: GIIITIMESOLUTION
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show GIIITIMESOLUTION records
+    unit: null
+  giiimeasurementdata_listing:
+    keywords:
+    - show giiimeasurementdata
+    - list giiimeasurementdata
+    - giiimeasurementdata records
+    - giiimeasurementdata data
+    - get giiimeasurementdata
+    log_type: GIIIMEASUREMENTDATA
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show GIIIMEASUREMENTDATA records
+    unit: null
+  giiisatpos_listing:
+    keywords:
+    - show giiisatpos
+    - list giiisatpos
+    - giiisatpos records
+    - giiisatpos data
+    - get giiisatpos
+    log_type: GIIISATPOS
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show GIIISATPOS records
+    unit: null
+  giiirxcommands_listing:
+    keywords:
+    - show giiirxcommands
+    - list giiirxcommands
+    - giiirxcommands records
+    - giiirxcommands data
+    - get giiirxcommands
+    log_type: GIIIRXCOMMANDS
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show GIIIRXCOMMANDS records
+    unit: null
+  giiiversion_listing:
+    keywords:
+    - show giiiversion
+    - list giiiversion
+    - giiiversion records
+    - giiiversion data
+    - get giiiversion
+    log_type: GIIIVERSION
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show GIIIVERSION records
+    unit: null
+  giiiethernetstatus_listing:
+    keywords:
+    - show giiiethernetstatus
+    - list giiiethernetstatus
+    - giiiethernetstatus records
+    - giiiethernetstatus data
+    - get giiiethernetstatus
+    log_type: GIIIETHERNETSTATUS
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show GIIIETHERNETSTATUS records
+    unit: null
+  markpos_listing:
+    keywords:
+    - show markpos
+    - list markpos
+    - markpos records
+    - markpos data
+    - get markpos
+    log_type: MARKPOS
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show MARKPOS records
+    unit: null
+  markpva_listing:
+    keywords:
+    - show markpva
+    - list markpva
+    - markpva records
+    - markpva data
+    - get markpva
+    log_type: MARKPVA
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show MARKPVA records
+    unit: null
+  veriposdecoderstatus_listing:
+    keywords:
+    - show veriposdecoderstatus
+    - list veriposdecoderstatus
+    - veriposdecoderstatus records
+    - veriposdecoderstatus data
+    - get veriposdecoderstatus
+    log_type: VERIPOSDECODERSTATUS
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show VERIPOSDECODERSTATUS records
+    unit: null
+  psrdop_listing:
+    keywords:
+    - show psrdop
+    - list psrdop
+    - psrdop records
+    - psrdop data
+    - get psrdop
+    log_type: PSRDOP
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show PSRDOP records
+    unit: null
+  thisantennatype_listing:
+    keywords:
+    - show thisantennatype
+    - list thisantennatype
+    - thisantennatype records
+    - thisantennatype data
+    - get thisantennatype
+    log_type: THISANTENNATYPE
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show THISANTENNATYPE records
+    unit: null
+  baseantennatype_listing:
+    keywords:
+    - show baseantennatype
+    - list baseantennatype
+    - baseantennatype records
+    - baseantennatype data
+    - get baseantennatype
+    log_type: BASEANTENNATYPE
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show BASEANTENNATYPE records
+    unit: null
+  rtkantenna_listing:
+    keywords:
+    - show rtkantenna
+    - list rtkantenna
+    - rtkantenna records
+    - rtkantenna data
+    - get rtkantenna
+    log_type: RTKANTENNA
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show RTKANTENNA records
+    unit: null
+  baseantennapco_listing:
+    keywords:
+    - show baseantennapco
+    - list baseantennapco
+    - baseantennapco records
+    - baseantennapco data
+    - get baseantennapco
+    log_type: BASEANTENNAPCO
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show BASEANTENNAPCO records
+    unit: null
+  thisantennapco_listing:
+    keywords:
+    - show thisantennapco
+    - list thisantennapco
+    - thisantennapco records
+    - thisantennapco data
+    - get thisantennapco
+    log_type: THISANTENNAPCO
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show THISANTENNAPCO records
+    unit: null
+  itdetectconfig_listing:
+    keywords:
+    - show itdetectconfig
+    - list itdetectconfig
+    - itdetectconfig records
+    - itdetectconfig data
+    - get itdetectconfig
+    log_type: ITDETECTCONFIG
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show ITDETECTCONFIG records
+    unit: null
+log_catalog:
+  ITBANDPASSFILTBANK:
+    fields:
+      frequencyType:
+        type: uenumString
+        offset: 4
+        field_index: null
+      minLowerFrequencyCutOff:
+        type: ufloatString
+        offset: 8
+        field_index: null
+      maxLowerFrequencyCutOff:
+        type: ufloatString
+        offset: 12
+        field_index: null
+      minUpperFrequencyCutOff:
+        type: ufloatString
+        offset: 16
+        field_index: null
+      maxUpperFrequencyCutOff:
+        type: ufloatString
+        offset: 20
+        field_index: null
+      frequencyStep:
+        type: ufloatString
+        offset: 24
+        field_index: null
+  ITSPECTRALANALYSIS:
+    fields:
+      mode:
+        type: uenumString
+        offset: 0
+        field_index: null
+      frequency:
+        type: uenumString
+        offset: 4
+        field_index: null
+      fftSize:
+        type: uenumString
+        offset: 12
+        field_index: null
+  BESTPOS:
+    fields:
+      idleTime:
+        type: uhex
+        offset: 12
+        field_index: null
+      solutionStatus:
+        type: uenumString
+        offset: 0
+        field_index: null
+      positionType:
+        type: uenumString
+        offset: 4
+        field_index: null
+      latitude:
+        type: udoubleString
+        offset: 8
+        field_index: null
+      longitude:
+        type: udoubleString
+        offset: 16
+        field_index: null
+      height:
+        type: udoubleString
+        offset: 24
+        field_index: null
+      undulation:
+        type: ufloatString
+        offset: 32
+        field_index: null
+      datumId:
+        type: uenumString
+        offset: 36
+        field_index: null
+      latitudeDeviation:
+        type: ufloatString
+        offset: 40
+        field_index: null
+      longitudeDeviation:
+        type: ufloatString
+        offset: 44
+        field_index: null
+      heightDeviation:
+        type: ufloatString
+        offset: 48
+        field_index: null
+      differentialAge:
+        type: ufloatString
+        offset: 56
+        field_index: null
+      solutionAge:
+        type: ufloatString
+        offset: 60
+        field_index: null
+      satellitesTracked:
+        type: ucharString
+        offset: 64
+        field_index: null
+      satellitesUsed:
+        type: ucharString
+        offset: 65
+        field_index: null
+      satellitesUsedInL1:
+        type: ucharString
+        offset: 66
+        field_index: null
+      satellitesWithMultiFreqCount:
+        type: ucharString
+        offset: 67
+        field_index: null
+      extendedSolutionStatus:
+        type: uhex
+        offset: 69
+        field_index: null
+      signalMaskGalBds:
+        type: uhex
+        offset: 70
+        field_index: null
+      signalMaskGpsGlo:
+        type: uhex
+        offset: 71
+        field_index: null
+      CRC:
+        type: uhex
+        offset: 72
+        field_index: null
+      sentenceTerminator:
+        type: uhex
+        offset: 4
+        field_index: null
+  AVEPOS:
+    fields:
+      latitude:
+        type: udoubleString
+        offset: 0
+        field_index: null
+      longitude:
+        type: udoubleString
+        offset: 8
+        field_index: null
+      height:
+        type: udoubleString
+        offset: 16
+        field_index: null
+      latitudeDeviation:
+        type: ufloatString
+        offset: 24
+        field_index: null
+      longitudeDeviation:
+        type: ufloatString
+        offset: 28
+        field_index: null
+      heightDeviation:
+        type: ufloatString
+        offset: 32
+        field_index: null
+      posaveStatus:
+        type: uenumString
+        offset: 36
+        field_index: null
+  TIME:
+    fields:
+      clockStatus:
+        type: uenumString
+        offset: 0
+        field_index: null
+      offset:
+        type: udoubleString
+        offset: 4
+        field_index: null
+      offsetStd:
+        type: udoubleString
+        offset: 12
+        field_index: null
+      utcOffset:
+        type: udoubleString
+        offset: 20
+        field_index: null
+      utcMonth:
+        type: ucharString
+        offset: 32
+        field_index: null
+      utcDay:
+        type: ucharString
+        offset: 33
+        field_index: null
+      utcHour:
+        type: ucharString
+        offset: 34
+        field_index: null
+      utcMin:
+        type: ucharString
+        offset: 35
+        field_index: null
+      utcStatus:
+        type: uenumString
+        offset: 40
+        field_index: null
+  SATVIS2:
+    fields:
+      satelliteSystem:
+        type: uenumString
+        offset: 0
+        field_index: null
+      satVisibility:
+        type: uenumString
+        offset: 4
+        field_index: null
+      almanacFlag:
+        type: uenumString
+        offset: 8
+        field_index: null
+      satelliteId:
+        type: uenumString
+        offset: 16
+        field_index: null
+      health:
+        type: uenumString
+        offset: 20
+        field_index: null
+      elevation:
+        type: udoubleString
+        offset: 24
+        field_index: null
+      azimuth:
+        type: udoubleString
+        offset: 32
+        field_index: null
+      trueDoppler:
+        type: udoubleString
+        offset: 40
+        field_index: null
+      apparentDoppler:
+        type: udoubleString
+        offset: 48
+        field_index: null
+  TRACTSTAT:
+    fields:
+      solutionStatus:
+        type: uenumString
+        offset: 0
+        field_index: null
+      positionType:
+        type: uenumString
+        offset: 4
+        field_index: null
+      cutoff:
+        type: ufloatString
+        offset: 8
+        field_index: null
+      PRN:
+        type: ushortString
+        offset: 16
+        field_index: null
+      glonassFrequency:
+        type: ushortString
+        offset: 18
+        field_index: null
+      pseudoRange:
+        type: udoubleString
+        offset: 24
+        field_index: null
+      doppler:
+        type: ufloatString
+        offset: 32
+        field_index: null
+      carrierNoiseRatio:
+        type: ufloatString
+        offset: 36
+        field_index: null
+      lockTime:
+        type: ufloatString
+        offset: 40
+        field_index: null
+      pseudoRangeResidual:
+        type: ufloatString
+        offset: 44
+        field_index: null
+      reject:
+        type: uenumString
+        offset: 48
+        field_index: null
+      pseudoRangeWeight:
+        type: ufloatString
+        offset: 52
+        field_index: null
+  BESTSATS:
+    fields:
+      system:
+        type: uenumString
+        offset: 4
+        field_index: null
+      satelliteID:
+        type: uenumString
+        offset: 8
+        field_index: null
+      status:
+        type: uenumString
+        offset: 12
+        field_index: null
+      SignalMask:
+        type: uhex
+        offset: 16
+        field_index: null
+  VERSION:
+    fields:
+      type:
+        type: uenumString
+        offset: 4
+        field_index: null
+  MODELFEATURE:
+    fields:
+      featureStatus:
+        type: uenumString
+        offset: 4
+        field_index: null
+      featureType:
+        type: uenumString
+        offset: 8
+        field_index: null
+  HWMONITOR:
+    fields:
+      idleTime:
+        type: uhex
+        offset: 12
+        field_index: null
+      reading:
+        type: ufloatString
+        offset: 4
+        field_index: null
+  FILESYSTEMCAPACITY:
+    fields:
+      massStorageDevice:
+        type: uenumString
+        offset: 4
+        field_index: null
+  FILELIST:
+    fields:
+      massStorageDevice:
+        type: uenumString
+        offset: 0
+        field_index: null
+      fileType:
+        type: uenumString
+        offset: 4
+        field_index: null
+      fileName:
+        type: ustringvariable
+        offset: 20
+        field_index: null
+  FILESYSTEMSTATUS:
+    fields:
+      massStorageDevice:
+        type: uenumString
+        offset: 0
+        field_index: null
+      massStorageStatus:
+        type: uenumString
+        offset: 4
+        field_index: null
+      errorMsg:
+        type: ustringvariable
+        offset: 12
+        field_index: null
+  IPSERVICE:
+    fields:
+      ipService:
+        type: uenumString
+        offset: 0
+        field_index: null
+      switch:
+        type: uenumString
+        offset: 4
+        field_index: null
+  FILETRANSFERSTATUS:
+    fields:
+      fileTransferStatus:
+        type: uenumString
+        offset: 0
+        field_index: null
+      fileName:
+        type: ustringvariable
+        offset: 12
+        field_index: null
+      errorMsg:
+        type: ustringvariable
+        offset: 16
+        field_index: null
+  ITPSDFINAL:
+    fields:
+      frequencyStart:
+        type: ufloatString
+        offset: 4
+        field_index: null
+      stepSize:
+        type: ufloatString
+        offset: 8
+        field_index: null
+      sample:
+        type: ushortString
+        offset: 16
+        field_index: null
+  ITPSDDETECT:
+    fields:
+      frequencyStart:
+        type: ufloatString
+        offset: 4
+        field_index: null
+      stepSize:
+        type: ufloatString
+        offset: 8
+        field_index: null
+      sample:
+        type: ushortString
+        offset: 16
+        field_index: null
+  AUTHCODES:
+    fields:
+      signatureStatus:
+        type: uenumString
+        offset: 0
+        field_index: null
+      authCodeType:
+        type: uenumString
+        offset: 8
+        field_index: null
+      authCodeString:
+        type: ustringvariable
+        offset: 16
+        field_index: null
+  ASSIGNLBANDBEAM:
+    fields:
+      option:
+        type: uenumString
+        offset: 0
+        field_index: null
+      name:
+        type: ustringvariable
+        offset: 4
+        field_index: null
+  SBASCONTROL:
+    fields:
+      switch:
+        type: uenumString
+        offset: 0
+        field_index: null
+      system:
+        type: uenumString
+        offset: 4
+        field_index: null
+      testMode:
+        type: uenumString
+        offset: 12
+        field_index: null
+  INTERFACEMODE:
+    fields:
+      port:
+        type: uenumString
+        offset: 0
+        field_index: null
+      rxType:
+        type: uenumString
+        offset: 4
+        field_index: null
+      txType:
+        type: uenumString
+        offset: 8
+        field_index: null
+      responses:
+        type: uenumString
+        offset: 12
+        field_index: null
+  GENERATERTK:
+    fields:
+      mode:
+        type: uenumString
+        offset: 0
+        field_index: null
+      port:
+        type: uenumString
+        offset: 4
+        field_index: null
+  GENERATEDIFF:
+    fields:
+      mode:
+        type: uenumString
+        offset: 0
+        field_index: null
+      port:
+        type: uenumString
+        offset: 4
+        field_index: null
+  PORTSTATS:
+    fields:
+      port:
+        type: uenumString
+        offset: 4
+        field_index: null
+  NTRIPCONFIG:
+    fields:
+      port:
+        type: uenumString
+        offset: 0
+        field_index: null
+      type:
+        type: uenumString
+        offset: 4
+        field_index: null
+      protocol:
+        type: uenumString
+        offset: 8
+        field_index: null
+      endpoint:
+        type: ustringvariable
+        offset: 12
+        field_index: null
+      mountpoint:
+        type: ustringvariable
+        offset: 0
+        field_index: null
+      userName:
+        type: ustringvariable
+        offset: 0
+        field_index: null
+      password:
+        type: ustringvariable
+        offset: 0
+        field_index: null
+      bindInterface:
+        type: uenumString
+        offset: 0
+        field_index: null
+  VALIDMODELS:
+    fields:
+      model:
+        type: ustringvariable
+        offset: 4
+        field_index: null
+  INSPVA:
+    fields:
+      seconds:
+        type: udoubleString
+        offset: 4
+        field_index: null
+      latitude:
+        type: udoubleString
+        offset: 8
+        field_index: null
+      longitude:
+        type: udoubleString
+        offset: 16
+        field_index: null
+      height:
+        type: udoubleString
+        offset: 24
+        field_index: null
+      northVelocity:
+        type: udoubleString
+        offset: 36
+        field_index: null
+      eastVelocity:
+        type: udoubleString
+        offset: 44
+        field_index: null
+      upVelocity:
+        type: udoubleString
+        offset: 52
+        field_index: null
+      roll:
+        type: udoubleString
+        offset: 60
+        field_index: null
+      pitch:
+        type: udoubleString
+        offset: 68
+        field_index: null
+      azimuth:
+        type: udoubleString
+        offset: 76
+        field_index: null
+      status:
+        type: uenumString
+        offset: 84
+        field_index: null
+  INSPVAX:
+    fields:
+      status:
+        type: uenumString
+        offset: 0
+        field_index: null
+      posType:
+        type: uenumString
+        offset: 4
+        field_index: null
+      latitude:
+        type: udoubleString
+        offset: 8
+        field_index: null
+      longitude:
+        type: udoubleString
+        offset: 16
+        field_index: null
+      height:
+        type: udoubleString
+        offset: 24
+        field_index: null
+      undulation:
+        type: ufloatString
+        offset: 32
+        field_index: null
+      northVelocity:
+        type: udoubleString
+        offset: 36
+        field_index: null
+      eastVelocity:
+        type: udoubleString
+        offset: 44
+        field_index: null
+      upVelocity:
+        type: udoubleString
+        offset: 52
+        field_index: null
+      roll:
+        type: udoubleString
+        offset: 60
+        field_index: null
+      pitch:
+        type: udoubleString
+        offset: 68
+        field_index: null
+      azimuth:
+        type: udoubleString
+        offset: 76
+        field_index: null
+      latDev:
+        type: ufloatString
+        offset: 84
+        field_index: null
+      longDev:
+        type: ufloatString
+        offset: 88
+        field_index: null
+      heightDev:
+        type: ufloatString
+        offset: 92
+        field_index: null
+      northVelDev:
+        type: ufloatString
+        offset: 96
+        field_index: null
+      eastVelDev:
+        type: ufloatString
+        offset: 100
+        field_index: null
+      upVelDev:
+        type: ufloatString
+        offset: 104
+        field_index: null
+      rollDev:
+        type: ufloatString
+        offset: 108
+        field_index: null
+      pitchDev:
+        type: ufloatString
+        offset: 112
+        field_index: null
+      azimuthDev:
+        type: ufloatString
+        offset: 116
+        field_index: null
+  HEADING2:
+    fields:
+      solStatus:
+        type: uenumString
+        offset: 0
+        field_index: null
+      posType:
+        type: uenumString
+        offset: 4
+        field_index: null
+      length:
+        type: ufloatString
+        offset: 8
+        field_index: null
+      heading:
+        type: ufloatString
+        offset: 12
+        field_index: null
+      pitch:
+        type: ufloatString
+        offset: 16
+        field_index: null
+      hdgStdDev:
+        type: ufloatString
+        offset: 24
+        field_index: null
+      ptchStdDev:
+        type: ufloatString
+        offset: 28
+        field_index: null
+      roverStnID:
+        type: udoubleString
+        offset: 32
+        field_index: null
+      masterStnID:
+        type: udoubleString
+        offset: 36
+        field_index: null
+      noOfSats:
+        type: ucharString
+        offset: 40
+        field_index: null
+      noOfSolSats:
+        type: ucharString
+        offset: 41
+        field_index: null
+      noOfObs:
+        type: ucharString
+        offset: 42
+        field_index: null
+      noOfMulti:
+        type: ucharString
+        offset: 43
+        field_index: null
+      solSource:
+        type: ucharString
+        offset: 44
+        field_index: null
+      extSolStat:
+        type: ucharString
+        offset: 45
+        field_index: null
+      galAndBeiDouSigMask:
+        type: ucharString
+        offset: 46
+        field_index: null
+      gpsAndGloSigMask:
+        type: ucharString
+        offset: 47
+        field_index: null
+  ITDETECTSTATUS:
+    fields:
+      rfPath:
+        type: uenumString
+        offset: 4
+        field_index: null
+      detectionType:
+        type: uenumString
+        offset: 8
+        field_index: null
+      centerFrequency:
+        type: ufloatString
+        offset: 12
+        field_index: null
+      bandwidth:
+        type: ufloatString
+        offset: 16
+        field_index: null
+      power:
+        type: ufloatString
+        offset: 20
+        field_index: null
+      estimatedPower:
+        type: ufloatString
+        offset: 24
+        field_index: null
+  SATEL4INFO:
+    fields:
+      protocol:
+        type: uenumString
+        offset: 0
+        field_index: null
+      fec:
+        type: uenumString
+        offset: 20
+        field_index: null
+  SATEL9INFO:
+    fields:
+      modemMode:
+        type: uenumString
+        offset: 0
+        field_index: null
+  SERIALCONFIG:
+    fields:
+      port:
+        type: uenumString
+        offset: 0
+        field_index: null
+      parity:
+        type: uenumString
+        offset: 8
+        field_index: null
+      handshake:
+        type: uenumString
+        offset: 20
+        field_index: null
+      break:
+        type: uenumString
+        offset: 24
+        field_index: null
+  LBANDBEAMTABLE:
+    fields:
+      name:
+        type: ustringvariable
+        offset: 4
+        field_index: null
+      reserved:
+        type: ustringvariable
+        offset: 12
+        field_index: null
+      logitude:
+        type: ufloatString
+        offset: 28
+        field_index: null
+  LOGLIST:
+    fields:
+      port:
+        type: uenumString
+        offset: 4
+        field_index: null
+      message:
+        type: ushortString
+        offset: 8
+        field_index: null
+      messageType:
+        type: ucharString
+        offset: 10
+        field_index: null
+      reserved:
+        type: ucharString
+        offset: 11
+        field_index: null
+      trigger:
+        type: uenumString
+        offset: 12
+        field_index: null
+      period:
+        type: udoubleString
+        offset: 16
+        field_index: null
+      offset:
+        type: udoubleString
+        offset: 24
+        field_index: null
+      hold:
+        type: uenumString
+        offset: 32
+        field_index: null
+  AUTOSURVEY:
+    fields:
+      control:
+        type: uenumString
+        offset: 0
+        field_index: null
+      accuracy:
+        type: ufloatString
+        offset: 8
+        field_index: null
+      tolerance:
+        type: ufloatString
+        offset: 12
+        field_index: null
+      save_nvm:
+        type: uenumString
+        offset: 16
+        field_index: null
+  POSAVE:
+    fields:
+      state:
+        type: uenumString
+        offset: 0
+        field_index: null
+      posavetime:
+        type: ufloatString
+        offset: 4
+        field_index: null
+      accuracy:
+        type: ufloatString
+        offset: 8
+        field_index: null
+      maxvstd:
+        type: ufloatString
+        offset: 12
+        field_index: null
+  ICOMCONFIG:
+    fields:
+      port:
+        type: uenumString
+        offset: 0
+        field_index: null
+      protocol:
+        type: uenumString
+        offset: 4
+        field_index: null
+      endPoint:
+        type: ustringvariable
+        offset: 8
+        field_index: null
+      bindInterface:
+        type: uenumString
+        offset: 88
+        field_index: null
+  CONNECTIMU:
+    fields:
+      IMUPort:
+        type: uenumString
+        offset: 0
+        field_index: null
+      IMUType:
+        type: uenumString
+        offset: 4
+        field_index: null
+  SETINSROTATION:
+    fields:
+      rotationalOffset:
+        type: uenumString
+        offset: 0
+        field_index: null
+      xRotation:
+        type: ufloatString
+        offset: 4
+        field_index: null
+      yRotation:
+        type: ufloatString
+        offset: 8
+        field_index: null
+      zRotation:
+        type: ufloatString
+        offset: 12
+        field_index: null
+      xRotationSD:
+        type: ufloatString
+        offset: 16
+        field_index: null
+      yRotationSD:
+        type: ufloatString
+        offset: 20
+        field_index: null
+      zRotationSD:
+        type: ufloatString
+        offset: 24
+        field_index: null
+  SETINSTRANSLATION:
+    fields:
+      insTranslation:
+        type: uenumString
+        offset: 0
+        field_index: null
+      xTranslation:
+        type: ufloatString
+        offset: 4
+        field_index: null
+      yTranslation:
+        type: ufloatString
+        offset: 8
+        field_index: null
+      zTranslation:
+        type: ufloatString
+        offset: 12
+        field_index: null
+      xTranslationSD:
+        type: ufloatString
+        offset: 16
+        field_index: null
+      yTranslationSD:
+        type: ufloatString
+        offset: 20
+        field_index: null
+      zTranslationSD:
+        type: ufloatString
+        offset: 24
+        field_index: null
+      inputFrame:
+        type: uenumString
+        offset: 28
+        field_index: null
+  SETIMUTOANTOFFSET:
+    fields:
+      xOffset:
+        type: udoubleString
+        offset: 0
+        field_index: null
+      yOffset:
+        type: udoubleString
+        offset: 8
+        field_index: null
+      zOffset:
+        type: udoubleString
+        offset: 16
+        field_index: null
+      xOffsetSD:
+        type: udoubleString
+        offset: 24
+        field_index: null
+      yOffsetSD:
+        type: udoubleString
+        offset: 32
+        field_index: null
+      zOffsetSD:
+        type: udoubleString
+        offset: 40
+        field_index: null
+  SETIMUTOANTOFFSET2:
+    fields:
+      xOffset:
+        type: udoubleString
+        offset: 0
+        field_index: null
+      yOffset:
+        type: udoubleString
+        offset: 8
+        field_index: null
+      zOffset:
+        type: udoubleString
+        offset: 16
+        field_index: null
+      xOffsetSD:
+        type: udoubleString
+        offset: 24
+        field_index: null
+      yOffsetSD:
+        type: udoubleString
+        offset: 32
+        field_index: null
+      zOffsetSD:
+        type: udoubleString
+        offset: 40
+        field_index: null
+  SETIMUORIENTATION:
+    fields:
+      switch:
+        type: uenumString
+        offset: 0
+        field_index: null
+  VEHICLEBODYROTATION:
+    fields:
+      xAngle:
+        type: udoubleString
+        offset: 0
+        field_index: null
+      yAngle:
+        type: udoubleString
+        offset: 8
+        field_index: null
+      zAngle:
+        type: udoubleString
+        offset: 16
+        field_index: null
+      xAngleSD:
+        type: udoubleString
+        offset: 24
+        field_index: null
+      yAngleSD:
+        type: udoubleString
+        offset: 32
+        field_index: null
+      zAngleSD:
+        type: udoubleString
+        offset: 40
+        field_index: null
+  APPLYVBR:
+    fields:
+      switch:
+        type: uenumString
+        offset: 0
+        field_index: null
+  FILEROTATECONFIG:
+    fields:
+      maxFileTime:
+        type: ushortString
+        offset: 0
+        field_index: null
+      maxFileSize:
+        type: ushortString
+        offset: 2
+        field_index: null
+      diskFullAction:
+        type: uenumString
+        offset: 4
+        field_index: null
+  DUALANTENNAALIGN:
+    fields:
+      switch:
+        type: uenumString
+        offset: 0
+        field_index: null
+  WIFIALIGNAUTOMATION:
+    fields:
+      option:
+        type: uenumString
+        offset: 0
+        field_index: null
+      corrections_port:
+        type: uenumString
+        offset: 8
+        field_index: null
+      headingextbopion:
+        type: uenumString
+        offset: 16
+        field_index: null
+      interfacemode:
+        type: uenumString
+        offset: 20
+        field_index: null
+  HEADINGOFFSET:
+    fields:
+      headingoffsetindeg:
+        type: ufloatString
+        offset: 0
+        field_index: null
+      pitchoffsetindeg:
+        type: ufloatString
+        offset: 4
+        field_index: null
+  SOFTLOADSTATUS:
+    fields:
+      status:
+        type: uenumString
+        offset: 0
+        field_index: null
+  LBANDTRACKSTAT:
+    fields:
+      id:
+        type: ushortString
+        offset: 18
+        field_index: null
+      status:
+        type: ushortString
+        offset: 20
+        field_index: null
+      reserved:
+        type: ushortString
+        offset: 22
+        field_index: null
+      doppler:
+        type: ufloatString
+        offset: 24
+        field_index: null
+      phaseStdDev:
+        type: ufloatString
+        offset: 32
+        field_index: null
+      lockTime:
+        type: ufloatString
+        offset: 36
+        field_index: null
+      biterrorRate:
+        type: ufloatString
+        offset: 60
+        field_index: null
+  INSPOSX:
+    fields:
+      INS_Status:
+        type: uenumString
+        offset: 0
+        field_index: null
+      positionType:
+        type: uenumString
+        offset: 4
+        field_index: null
+      latitude:
+        type: udoubleString
+        offset: 8
+        field_index: null
+      longitude:
+        type: udoubleString
+        offset: 16
+        field_index: null
+      height:
+        type: udoubleString
+        offset: 24
+        field_index: null
+      undulation:
+        type: ufloatString
+        offset: 32
+        field_index: null
+      latitudeDeviation:
+        type: ufloatString
+        offset: 36
+        field_index: null
+      longitudeDeviation:
+        type: ufloatString
+        offset: 40
+        field_index: null
+      heightDeviation:
+        type: ufloatString
+        offset: 44
+        field_index: null
+      extendedSolution:
+        type: uhex
+        offset: 48
+        field_index: null
+      timeSinceUpdate:
+        type: ushortString
+        offset: 52
+        field_index: null
+  WIFIMODE:
+    fields:
+      mode:
+        type: uenumString
+        offset: 0
+        field_index: null
+  SKDETECT:
+    fields:
+      mode:
+        type: uenumString
+        offset: 0
+        field_index: null
+  SKCALIBRATESTATUS:
+    fields:
+      result:
+        type: uenumString
+        offset: 0
+        field_index: null
+      mode:
+        type: uenumString
+        offset: 0
+        field_index: null
+      signalType:
+        type: uenumString
+        offset: 12
+        field_index: null
+      spoofingCalibrationMode:
+        type: uenumString
+        offset: 16
+        field_index: null
+      frontEndMode:
+        type: uenumString
+        offset: 20
+        field_index: null
+      calibrationResult:
+        type: uenumString
+        offset: 24
+        field_index: null
+  WIFIAPSETTINGS:
+    fields:
+      SSID:
+        type: ustringvariable
+        offset: 0
+        field_index: null
+      passkey:
+        type: ustringvariable
+        offset: 0
+        field_index: null
+      band:
+        type: uenumString
+        offset: 0
+        field_index: null
+      security_protocol:
+        type: uenumString
+        offset: 4
+        field_index: null
+      encryption:
+        type: uenumString
+        offset: 8
+        field_index: null
+      region:
+        type: uenumString
+        offset: 12
+        field_index: null
+      BSSID:
+        type: ustringvariable
+        offset: 20
+        field_index: null
+  IPCONFIG:
+    fields:
+      interface:
+        type: uenumString
+        offset: 0
+        field_index: null
+      mode:
+        type: uenumString
+        offset: 4
+        field_index: null
+      ipAddress:
+        type: ustringvariable
+        offset: 8
+        field_index: null
+      netmask:
+        type: ustringvariable
+        offset: 0
+        field_index: null
+      gateway:
+        type: ustringvariable
+        offset: 0
+        field_index: null
+  DNSCONFIG:
+    fields:
+      dnsserver:
+        type: uenumString
+        offset: 0
+        field_index: null
+      ipAddress:
+        type: ustringvariable
+        offset: 4
+        field_index: null
+  SATEL4CONFIG:
+    fields:
+      radioBehavior:
+        type: uenumString
+        offset: 0
+        field_index: null
+      baseType:
+        type: uenumString
+        offset: 16
+        field_index: null
+  SATELSTATUS:
+    fields:
+      state:
+        type: uenumString
+        offset: 0
+        field_index: null
+  SATELDETECT:
+    fields:
+      port:
+        type: uenumString
+        offset: 0
+        field_index: null
+  TERRASTAR:
+    fields:
+      subscriptionType:
+        type: uenumString
+        offset: 16
+        field_index: null
+      regionRestriction:
+        type: uenumString
+        offset: 36
+        field_index: null
+      centerPointLatitude:
+        type: ufloatString
+        offset: 40
+        field_index: null
+      centerPointLongitude:
+        type: ufloatString
+        offset: 44
+        field_index: null
+  OCEANIXINFO:
+    fields:
+      subscriptionType:
+        type: uenumString
+        offset: 16
+        field_index: null
+  VERIPOSINFO:
+    fields:
+      mode:
+        type: uenumString
+        offset: 4
+        field_index: null
+      details:
+        type: uhex
+        offset: 8
+        field_index: null
+      servicecode:
+        type: ucharString
+        offset: 12
+        field_index: null
+  OCEANIXSTATUS:
+    fields:
+      access:
+        type: uenumString
+        offset: 0
+        field_index: null
+      syncState:
+        type: uenumString
+        offset: 4
+        field_index: null
+      regionRestrictionStatus:
+        type: uenumString
+        offset: 8
+        field_index: null
+  TERRASTARSTATUS:
+    fields:
+      access:
+        type: uenumString
+        offset: 0
+        field_index: null
+      syncState:
+        type: uenumString
+        offset: 4
+        field_index: null
+  ALIGNAUTOMATION:
+    fields:
+      option:
+        type: uenumString
+        offset: 0
+        field_index: null
+      comport:
+        type: uenumString
+        offset: 4
+        field_index: null
+      headingextboption:
+        type: uenumString
+        offset: 16
+        field_index: null
+      interfacemode:
+        type: uenumString
+        offset: 20
+        field_index: null
+  RXSTATUSEVENT:
+    fields:
+      word:
+        type: uenumString
+        offset: 0
+        field_index: null
+      event:
+        type: uenumString
+        offset: 8
+        field_index: null
+      description:
+        type: ustringvariable
+        offset: 12
+        field_index: null
+  GIIICARDSTATUS:
+    fields:
+      state:
+        type: ushortString
+        offset: 0
+        field_index: null
+      mode:
+        type: ushortString
+        offset: 2
+        field_index: null
+      component:
+        type: uenumString
+        offset: 20
+        field_index: null
+      slotId:
+        type: ushortString
+        offset: 24
+        field_index: null
+      moduleId:
+        type: ushortString
+        offset: 26
+        field_index: null
+      idleTime:
+        type: ufloatString
+        offset: 28
+        field_index: null
+      value_1:
+        type: ufloatString
+        offset: 32
+        field_index: null
+      value_2:
+        type: ufloatString
+        offset: 36
+        field_index: null
+      value_3:
+        type: ufloatString
+        offset: 40
+        field_index: null
+      value_4:
+        type: ufloatString
+        offset: 44
+        field_index: null
+      value_5:
+        type: ufloatString
+        offset: 48
+        field_index: null
+      value_6:
+        type: ufloatString
+        offset: 52
+        field_index: null
+      value_7:
+        type: ufloatString
+        offset: 56
+        field_index: null
+      value_8:
+        type: ufloatString
+        offset: 60
+        field_index: null
+      value_9:
+        type: ufloatString
+        offset: 64
+        field_index: null
+      fanSpeed:
+        type: ushortString
+        offset: 4
+        field_index: null
+      fanFailed:
+        type: ushortString
+        offset: 6
+        field_index: null
+  GIIITIMESOLUTION:
+    fields:
+      clockOffset:
+        type: udoubleString
+        offset: 4
+        field_index: null
+      offsetStd:
+        type: udoubleString
+        offset: 12
+        field_index: null
+      clockDrift:
+        type: udoubleString
+        offset: 20
+        field_index: null
+      svChan:
+        type: ushortString
+        offset: 36
+        field_index: null
+      sigChan:
+        type: ushortString
+        offset: 38
+        field_index: null
+      PRN:
+        type: ushortString
+        offset: 40
+        field_index: null
+      residual:
+        type: ufloatString
+        offset: 48
+        field_index: null
+      svclockOffset:
+        type: ufloatString
+        offset: 52
+        field_index: null
+      ionoCorr:
+        type: ufloatString
+        offset: 56
+        field_index: null
+      tropoCorr:
+        type: ufloatString
+        offset: 60
+        field_index: null
+      svPosX:
+        type: udoubleString
+        offset: 64
+        field_index: null
+      svPosY:
+        type: udoubleString
+        offset: 72
+        field_index: null
+      svPosZ:
+        type: udoubleString
+        offset: 80
+        field_index: null
+  GIIIMEASUREMENTDATA:
+    fields:
+      PRN:
+        type: ushortString
+        offset: 4
+        field_index: null
+      svChan:
+        type: ushortString
+        offset: 6
+        field_index: null
+      sigChan:
+        type: ushortString
+        offset: 8
+        field_index: null
+      HWChan:
+        type: ushortString
+        offset: 10
+        field_index: null
+      PSR:
+        type: udoubleString
+        offset: 16
+        field_index: null
+      PSRstd:
+        type: ufloatString
+        offset: 24
+        field_index: null
+      ADR:
+        type: udoubleString
+        offset: 28
+        field_index: null
+      AdrStd:
+        type: ufloatString
+        offset: 36
+        field_index: null
+      dopp:
+        type: ufloatString
+        offset: 40
+        field_index: null
+      CNO:
+        type: ufloatString
+        offset: 44
+        field_index: null
+      lockTime:
+        type: udoubleString
+        offset: 56
+        field_index: null
+  GIIISATPOS:
+    fields:
+      satelliteSystem:
+        type: uenumString
+        offset: 0
+        field_index: null
+      prn:
+        type: ushortString
+        offset: 16
+        field_index: null
+      ephemValidity:
+        type: ushortString
+        offset: 20
+        field_index: null
+      almValidity:
+        type: ushortString
+        offset: 22
+        field_index: null
+      ephElevation:
+        type: ufloatString
+        offset: 28
+        field_index: null
+      ephAzimuth:
+        type: ufloatString
+        offset: 32
+        field_index: null
+      ephDop:
+        type: ufloatString
+        offset: 36
+        field_index: null
+      almElevation:
+        type: ufloatString
+        offset: 44
+        field_index: null
+      almAzimuth:
+        type: ufloatString
+        offset: 48
+        field_index: null
+      almDop:
+        type: ufloatString
+        offset: 52
+        field_index: null
+  GIIIRXCOMMANDS:
+    fields:
+      command:
+        type: ustringvariable
+        offset: 4
+        field_index: null
+  GIIIVERSION:
+    fields:
+      type:
+        type: uenumString
+        offset: 4
+        field_index: null
+      slotId:
+        type: ushortString
+        offset: 8
+        field_index: null
+      moduleId:
+        type: ushortString
+        offset: 10
+        field_index: null
+  GIIIETHERNETSTATUS:
+    fields:
+      type:
+        type: uenumString
+        offset: 4
+        field_index: null
+      reserved:
+        type: ushortString
+        offset: 26
+        field_index: null
+      details:
+        type: uenumString
+        offset: 28
+        field_index: null
+  MARKPOS:
+    fields:
+      idleTime:
+        type: uhex
+        offset: 12
+        field_index: null
+      solutionStatus:
+        type: uenumString
+        offset: 0
+        field_index: null
+      positionType:
+        type: uenumString
+        offset: 4
+        field_index: null
+      latitude:
+        type: udoubleString
+        offset: 8
+        field_index: null
+      longitude:
+        type: udoubleString
+        offset: 16
+        field_index: null
+      height:
+        type: udoubleString
+        offset: 24
+        field_index: null
+      undulation:
+        type: ufloatString
+        offset: 32
+        field_index: null
+      datumId:
+        type: uenumString
+        offset: 36
+        field_index: null
+      latitudeDeviation:
+        type: ufloatString
+        offset: 40
+        field_index: null
+      longitudeDeviation:
+        type: ufloatString
+        offset: 44
+        field_index: null
+      heightDeviation:
+        type: ufloatString
+        offset: 48
+        field_index: null
+      stationId:
+        type: ufloatString
+        offset: 52
+        field_index: null
+      differentialAge:
+        type: ufloatString
+        offset: 56
+        field_index: null
+      solutionAge:
+        type: ufloatString
+        offset: 60
+        field_index: null
+      satellitesTracked:
+        type: ucharString
+        offset: 64
+        field_index: null
+      satellitesUsedInsolution:
+        type: ucharString
+        offset: 65
+        field_index: null
+      satellitesUsedInL1:
+        type: ucharString
+        offset: 66
+        field_index: null
+      satellitesWithMultiFreqCount:
+        type: ucharString
+        offset: 67
+        field_index: null
+      extendedSolutionStatus:
+        type: uhex
+        offset: 69
+        field_index: null
+      signalMaskGalBds:
+        type: uhex
+        offset: 70
+        field_index: null
+      signalMaskGpsGlo:
+        type: uhex
+        offset: 71
+        field_index: null
+      CRC:
+        type: uhex
+        offset: 72
+        field_index: null
+      sentenceTerminator:
+        type: uhex
+        offset: 4
+        field_index: null
+  MARKPVA:
+    fields:
+      seconds:
+        type: udoubleString
+        offset: 4
+        field_index: null
+      latitude:
+        type: udoubleString
+        offset: 12
+        field_index: null
+      longitude:
+        type: udoubleString
+        offset: 20
+        field_index: null
+      height:
+        type: udoubleString
+        offset: 24
+        field_index: null
+      northVelocity:
+        type: udoubleString
+        offset: 36
+        field_index: null
+      eastVelocity:
+        type: udoubleString
+        offset: 44
+        field_index: null
+      upVelocity:
+        type: udoubleString
+        offset: 52
+        field_index: null
+      roll:
+        type: udoubleString
+        offset: 60
+        field_index: null
+      pitch:
+        type: udoubleString
+        offset: 68
+        field_index: null
+      azimuth:
+        type: udoubleString
+        offset: 76
+        field_index: null
+      status:
+        type: uenumString
+        offset: 84
+        field_index: null
+  VERIPOSDECODERSTATUS:
+    fields:
+      syncState:
+        type: uenumString
+        offset: 12
+        field_index: null
+      comPort:
+        type: uenumString
+        offset: 20
+        field_index: null
+      decoderSyncStatus:
+        type: ushortString
+        offset: 24
+        field_index: null
+      decoderChannel:
+        type: ushortString
+        offset: 26
+        field_index: null
+  PSRDOP:
+    fields:
+      gdop:
+        type: ufloatString
+        offset: 0
+        field_index: null
+      pdop:
+        type: ufloatString
+        offset: 4
+        field_index: null
+      hdop:
+        type: ufloatString
+        offset: 8
+        field_index: null
+      htdop:
+        type: ufloatString
+        offset: 12
+        field_index: null
+      tdop:
+        type: ufloatString
+        offset: 16
+        field_index: null
+      cutoff:
+        type: ufloatString
+        offset: 20
+        field_index: null
+  THISANTENNATYPE:
+    fields:
+      antennaType:
+        type: uenumString
+        offset: 0
+        field_index: null
+      radomeType:
+        type: uenumString
+        offset: 4
+        field_index: null
+  BASEANTENNATYPE:
+    fields:
+      antennaType:
+        type: uenumString
+        offset: 0
+        field_index: null
+      radomeType:
+        type: uenumString
+        offset: 4
+        field_index: null
+  RTKANTENNA:
+    fields:
+      posref:
+        type: uenumString
+        offset: 0
+        field_index: null
+      pcv:
+        type: uenumString
+        offset: 4
+        field_index: null
+  BASEANTENNAPCO:
+    fields:
+      frequency:
+        type: uenumString
+        offset: 0
+        field_index: null
+      northOffset:
+        type: udoubleString
+        offset: 4
+        field_index: null
+      eastOffset:
+        type: udoubleString
+        offset: 12
+        field_index: null
+      upOffset:
+        type: udoubleString
+        offset: 20
+        field_index: null
+  THISANTENNAPCO:
+    fields:
+      frequency:
+        type: uenumString
+        offset: 0
+        field_index: null
+      northOffset:
+        type: udoubleString
+        offset: 4
+        field_index: null
+      eastOffset:
+        type: udoubleString
+        offset: 12
+        field_index: null
+      upOffset:
+        type: udoubleString
+        offset: 20
+        field_index: null
+  ITDETECTCONFIG:
+    fields:
+      rfpath:
+        type: uenumString
+        offset: 0
+        field_index: null
+signal_types:
+  GPSL1:
+    id: 0
+    name: GPSL1
+    constellation: GPS
+    bands:
+    - L1
+  GPSL1L2:
+    id: 1
+    name: GPSL1L2
+    constellation: GPS
+    bands:
+    - L1L
+  SBASL1:
+    id: 4
+    name: SBASL1
+    constellation: SBAS
+    bands:
+    - L1
+  GPSL5:
+    id: 5
+    name: GPSL5
+    constellation: GPS
+    bands:
+    - L5
+  GPSL1L2C:
+    id: 6
+    name: GPSL1L2C
+    constellation: GPS
+    bands:
+    - L1L
+  GPSL1L2AUTO:
+    id: 7
+    name: GPSL1L2AUTO
+    constellation: GPS
+    bands:
+    - L1L
+  GLOL1L2:
+    id: 8
+    name: GLOL1L2
+    constellation: GLONASS
+    bands:
+    - L1L
+  LBAND:
+    id: 9
+    name: LBAND
+    constellation: UNKNOWN
+    bands: []
+  GLOL1:
+    id: 10
+    name: GLOL1
+    constellation: GLONASS
+    bands:
+    - L1
+  GALE1:
+    id: 11
+    name: GALE1
+    constellation: GALILEO
+    bands:
+    - E1
+  GALE5A:
+    id: 12
+    name: GALE5A
+    constellation: GALILEO
+    bands:
+    - E5A
+  GALE5B:
+    id: 13
+    name: GALE5B
+    constellation: GALILEO
+    bands:
+    - E5B
+  GALALTBOC:
+    id: 14
+    name: GALALTBOC
+    constellation: GALILEO
+    bands: []
+  BEIDOUB1:
+    id: 15
+    name: BEIDOUB1
+    constellation: BEIDOU
+    bands:
+    - B1
+  GPSL1L2PL2C:
+    id: 16
+    name: GPSL1L2PL2C
+    constellation: GPS
+    bands:
+    - L1L
+    - L2C
+  GPSL1L5:
+    id: 17
+    name: GPSL1L5
+    constellation: GPS
+    bands:
+    - L1L
+  SBASL1L5:
+    id: 18
+    name: SBASL1L5
+    constellation: SBAS
+    bands:
+    - L1L
+  GPSL1L2PL2CL5:
+    id: 19
+    name: GPSL1L2PL2CL5
+    constellation: GPS
+    bands:
+    - L1L
+    - L2CL
+  GPSL1L2PL5:
+    id: 20
+    name: GPSL1L2PL5
+    constellation: GPS
+    bands:
+    - L1L
+    - L5
+  GALE1E5AE5B:
+    id: 21
+    name: GALE1E5AE5B
+    constellation: GALILEO
+    bands:
+    - E1E
+    - E5B
+  GALE1E5AE5BALTBOC:
+    id: 22
+    name: GALE1E5AE5BALTBOC
+    constellation: GALILEO
+    bands:
+    - E1E
+    - E5BALTBOC
+  GALE1E5A:
+    id: 23
+    name: GALE1E5A
+    constellation: GALILEO
+    bands:
+    - E1E
+  GLOL1L2C:
+    id: 24
+    name: GLOL1L2C
+    constellation: GLONASS
+    bands:
+    - L1L
+  GLOL1L2PL2C:
+    id: 25
+    name: GLOL1L2PL2C
+    constellation: GLONASS
+    bands:
+    - L1L
+    - L2C
+  QZSSL1CA:
+    id: 26
+    name: QZSSL1CA
+    constellation: QZSS
+    bands:
+    - L1CA
+  QZSSL1CAL2C:
+    id: 27
+    name: QZSSL1CAL2C
+    constellation: QZSS
+    bands:
+    - L1CAL
+  QZSSL1CAL2CL5:
+    id: 28
+    name: QZSSL1CAL2CL5
+    constellation: QZSS
+    bands:
+    - L1CAL
+    - L5
+  QZSSL1CAL5:
+    id: 29
+    name: QZSSL1CAL5
+    constellation: QZSS
+    bands:
+    - L1CAL
+  BEIDOUB1B2:
+    id: 30
+    name: BEIDOUB1B2
+    constellation: BEIDOU
+    bands:
+    - B1B
+  GALE1E5B:
+    id: 31
+    name: GALE1E5B
+    constellation: GALILEO
+    bands:
+    - E1E
+  BEIDOUB1B3:
+    id: 32
+    name: BEIDOUB1B3
+    constellation: BEIDOU
+    bands:
+    - B1B
+  BEIDOUB3:
+    id: 33
+    name: BEIDOUB3
+    constellation: BEIDOU
+    bands:
+    - B3
+  BEIDOUB1B2B3:
+    id: 34
+    name: BEIDOUB1B2B3
+    constellation: BEIDOU
+    bands:
+    - B1B
+    - B3
+  GALE1E5AE5BALTBOCE6:
+    id: 35
+    name: GALE1E5AE5BALTBOCE6
+    constellation: GALILEO
+    bands:
+    - E1E
+    - E5BALTBOCE
+  GPSL1L2PL2CL5L1C:
+    id: 36
+    name: GPSL1L2PL2CL5L1C
+    constellation: GPS
+    bands:
+    - L1L
+    - L2CL
+    - L1C
+  QZSSL1CAL2CL5L1C:
+    id: 37
+    name: QZSSL1CAL2CL5L1C
+    constellation: QZSS
+    bands:
+    - L1CAL
+    - L5L
+  QZSSL1CAL2CL5L1CL6:
+    id: 38
+    name: QZSSL1CAL2CL5L1CL6
+    constellation: QZSS
+    bands:
+    - L1CAL
+    - L5L
+    - L6
+  GLOL1L3:
+    id: 39
+    name: GLOL1L3
+    constellation: GLONASS
+    bands:
+    - L1L
+  GLOL3:
+    id: 40
+    name: GLOL3
+    constellation: GLONASS
+    bands:
+    - L3
+  GLOL1L2PL2CL3:
+    id: 41
+    name: GLOL1L2PL2CL3
+    constellation: GLONASS
+    bands:
+    - L1L
+    - L2CL
+  GPSL1L2PL2CL1C:
+    id: 42
+    name: GPSL1L2PL2CL1C
+    constellation: GPS
+    bands:
+    - L1L
+    - L2CL
+  QZSSL1CAL2CL1C:
+    id: 43
+    name: QZSSL1CAL2CL1C
+    constellation: QZSS
+    bands:
+    - L1CAL
+    - L1C
+  NAVICL5:
+    id: 44
+    name: NAVICL5
+    constellation: NAVIC
+    bands:
+    - L5
+  BEIDOUB1C:
+    id: 45
+    name: BEIDOUB1C
+    constellation: BEIDOU
+    bands:
+    - B1C
+  BEIDOUB1B1C:
+    id: 46
+    name: BEIDOUB1B1C
+    constellation: BEIDOU
+    bands:
+    - B1B
+  BEIDOUB1B1CB2B3:
+    id: 47
+    name: BEIDOUB1B1CB2B3
+    constellation: BEIDOU
+    bands:
+    - B1B
+    - B2B
+  BEIDOUB1B1CB2:
+    id: 48
+    name: BEIDOUB1B1CB2
+    constellation: BEIDOU
+    bands:
+    - B1B
+    - B2
+  BEIDOUB1B2IB2B:
+    id: 49
+    name: BEIDOUB1B2IB2B
+    constellation: BEIDOU
+    bands:
+    - B1B
+    - B2B
+  BEIDOUB1B2B:
+    id: 50
+    name: BEIDOUB1B2B
+    constellation: BEIDOU
+    bands:
+    - B1B
+  BEIDOUB1B1CB2IB2B:
+    id: 51
+    name: BEIDOUB1B1CB2IB2B
+    constellation: BEIDOU
+    bands:
+    - B1B
+    - B2IB
+  BEIDOUB1B1CB2IB2BB3:
+    id: 52
+    name: BEIDOUB1B1CB2IB2BB3
+    constellation: BEIDOU
+    bands:
+    - B1B
+    - B2IB
+    - B3
+  BEIDOUB1B1CB2B:
+    id: 53
+    name: BEIDOUB1B1CB2B
+    constellation: BEIDOU
+    bands:
+    - B1B
+    - B2B
+  BEIDOUB1B2IB2BB3:
+    id: 54
+    name: BEIDOUB1B2IB2BB3
+    constellation: BEIDOU
+    bands:
+    - B1B
+    - B2BB
+  BEIDOUB1B2B2B:
+    id: 55
+    name: BEIDOUB1B2B2B
+    constellation: BEIDOU
+    bands:
+    - B1B
+    - B2B
+  BEIDOUB1B1CB2B2B:
+    id: 56
+    name: BEIDOUB1B1CB2B2B
+    constellation: BEIDOU
+    bands:
+    - B1B
+    - B2B
+  BEIDOUB1B1CB2B2BB3:
+    id: 57
+    name: BEIDOUB1B1CB2B2BB3
+    constellation: BEIDOU
+    bands:
+    - B1B
+    - B2B
+    - B3
+  GALE1E5AE5BALTBOCSX:
+    id: 105
+    name: GALE1E5AE5BALTBOCSX
+    constellation: GALILEO
+    bands:
+    - E1E
+    - E5BALTBOCSX
+  GALE1E5AE5BALTBOCSXE6:
+    id: 107
+    name: GALE1E5AE5BALTBOCSXE6
+    constellation: GALILEO
+    bands:
+    - E1E
+    - E5BALTBOCSXE
+query_templates: {}

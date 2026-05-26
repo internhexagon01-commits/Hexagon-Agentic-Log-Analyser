@@ -1,0 +1,454 @@
+use_cases:
+  height_analysis:
+    keywords:
+    - height
+    - altitude
+    - elevation
+    - vertical
+    - height field
+    - altitude field
+    - minimum height
+    - maximum height
+    - average height
+    - min height
+    - max height
+    - lowest height
+    - highest height
+    - height above sea level
+    - msl
+    log_type: BESTPOS
+    field_index: 6
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze height/altitude statistics from BESTPOS
+    unit: m
+  latitude_analysis:
+    keywords:
+    - latitude
+    - lat
+    - north
+    - south
+    - latitude field
+    - minimum latitude
+    - maximum latitude
+    - average latitude
+    - northing
+    log_type: BESTPOS
+    field_index: 4
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze latitude statistics from BESTPOS
+    unit: degrees
+  longitude_analysis:
+    keywords:
+    - longitude
+    - lon
+    - long
+    - east
+    - west
+    - longitude field
+    - minimum longitude
+    - maximum longitude
+    - average longitude
+    - easting
+    log_type: BESTPOS
+    field_index: 5
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze longitude statistics from BESTPOS
+    unit: degrees
+  horizontal_accuracy:
+    keywords:
+    - horizontal accuracy
+    - horizontal error
+    - horizontal precision
+    - position accuracy
+    - position error
+    - position precision
+    - latitude deviation
+    - longitude deviation
+    - horizontal stddev
+    log_type: BESTPOS
+    field_index: 9
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze horizontal position accuracy from BESTPOS
+    unit: m
+  vertical_accuracy:
+    keywords:
+    - vertical accuracy
+    - vertical error
+    - vertical precision
+    - height accuracy
+    - height error
+    - altitude accuracy
+    - height deviation
+    - height stddev
+    log_type: BESTPOS
+    field_index: 11
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze vertical position accuracy from BESTPOS
+    unit: m
+  satellites_tracked:
+    keywords:
+    - satellites tracked
+    - satellite count
+    - number of satellites
+    - sat count
+    - tracking satellites
+    - minimum satellites
+    - maximum satellites
+    - average satellites
+    - how many satellites
+    - satellite number
+    - sats tracked
+    log_type: BESTPOS
+    field_index: 15
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze number of satellites tracked from BESTPOS
+    unit: satellites
+  satellites_used:
+    keywords:
+    - satellites used
+    - satellites in solution
+    - sats used
+    - satellites used in solution
+    - number of satellites used
+    log_type: BESTPOS
+    field_index: 16
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze number of satellites used in solution from BESTPOS
+    unit: satellites
+  velocity_analysis:
+    keywords:
+    - velocity
+    - speed
+    - vel
+    - horizontal speed
+    - ground speed
+    - minimum velocity
+    - maximum velocity
+    - average velocity
+    - min speed
+    - max speed
+    - fastest
+    - slowest
+    - how fast
+    log_type: BESTVEL
+    field_index: 6
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze velocity/speed statistics from BESTVEL
+    unit: m/s
+  track_over_ground:
+    keywords:
+    - track over ground
+    - track
+    - heading
+    - direction
+    - course
+    - bearing
+    - track angle
+    log_type: BESTVEL
+    field_index: 7
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze track over ground from BESTVEL
+    unit: degrees
+  signal_quality:
+    keywords:
+    - signal quality
+    - signal strength
+    - c/no
+    - cno
+    - carrier
+    - signal level
+    - carrier to noise
+    - minimum signal
+    - maximum signal
+    - average signal
+    - signal statistics
+    - carrier noise ratio
+    - snr
+    log_type: TRACKSTAT
+    field_index: 11
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze signal quality (C/No) from TRACKSTAT
+    unit: dB-Hz
+  scintillation_analysis:
+    keywords:
+    - scintillation
+    - scintillating
+    - ionospheric
+    - signal fade
+    - signal variation
+    - signal fluctuation
+    - signal fading
+    - ionospheric scintillation
+    - signal drops
+    log_type: TRACKSTAT
+    field_index: 11
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Detect scintillation from C/No variations in TRACKSTAT
+    unit: dB-Hz
+    special_handler: scintillation
+  jamming_detection:
+    keywords:
+    - jamming
+    - jammer
+    - jam
+    - jammed
+    - jamming detected
+    - jamming detection
+    - any jamming
+    - check jamming
+    - detect jamming
+    - jammer present
+    - jamming event
+    log_type: RXSTATUS
+    field_index: 4
+    bit_position: 9
+    analysis_type: bit_check
+    description: Detect jamming events from RXSTATUS receiver status word
+    unit: null
+  spoofing_detection:
+    keywords:
+    - spoofing
+    - spoof
+    - spoofed
+    - fake signal
+    - spoofing detected
+    - spoofing detection
+    - any spoofing
+    - check spoofing
+    - detect spoofing
+    - spoofer present
+    - spoofing event
+    - spoofing attack
+    log_type: RXSTATUS
+    field_index: 4
+    bit_position: 10
+    analysis_type: bit_check
+    description: Detect spoofing events from RXSTATUS receiver status word
+    unit: null
+  antenna_error:
+    keywords:
+    - antenna
+    - antenna error
+    - antenna issue
+    - antenna problem
+    - antenna fault
+    - antenna status
+    - antenna open
+    - antenna short
+    - antenna disconnected
+    - antenna failure
+    log_type: RXSTATUS
+    field_index: 4
+    bit_position: 5
+    analysis_type: bit_check
+    description: Detect antenna errors from RXSTATUS
+    unit: null
+  interference_detection:
+    keywords:
+    - interference
+    - interfere
+    - rf interference
+    - spectrum
+    - interference detected
+    - interference detection
+    - any interference
+    - check interference
+    - detect interference
+    - rf jamming
+    - narrowband interference
+    - wideband interference
+    log_type: ITDETECTSTATUS
+    field_index: 2
+    bit_position: null
+    analysis_type: raw_listing
+    description: Detect RF interference from ITDETECTSTATUS log
+    unit: null
+  roll_analysis:
+    keywords:
+    - roll
+    - roll angle
+    - bank
+    - bank angle
+    - minimum roll
+    - maximum roll
+    - average roll
+    log_type: INSPVA
+    field_index: 10
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze roll angle from INSPVA
+    unit: degrees
+  pitch_analysis:
+    keywords:
+    - pitch
+    - pitch angle
+    - nose up
+    - nose down
+    - minimum pitch
+    - maximum pitch
+    - average pitch
+    log_type: INSPVA
+    field_index: 11
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze pitch angle from INSPVA
+    unit: degrees
+  azimuth_analysis:
+    keywords:
+    - azimuth
+    - heading
+    - yaw
+    - direction
+    - minimum azimuth
+    - maximum azimuth
+    - average azimuth
+    log_type: INSPVA
+    field_index: 12
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze azimuth/heading from INSPVA
+    unit: degrees
+  list_logs:
+    keywords:
+    - list all logs
+    - list logs
+    - what logs
+    - all logs
+    - log types
+    - how many logs
+    - available logs
+    - logs in file
+    - logs present
+    - show logs
+    - display logs
+    - log list
+    log_type: null
+    field_index: null
+    bit_position: null
+    analysis_type: direct_handler
+    handler_name: list_logs
+    description: List all log types in the file
+    unit: null
+  time_range:
+    keywords:
+    - time range
+    - start time
+    - end time
+    - duration
+    - file time
+    - gps time
+    - utc time
+    - how long
+    - start and end
+    - time span
+    - time period
+    - file duration
+    log_type: null
+    field_index: null
+    bit_position: null
+    analysis_type: direct_handler
+    handler_name: time_range
+    description: Show file time range
+    unit: null
+  data_gaps:
+    keywords:
+    - data gap
+    - data gaps
+    - missing data
+    - gaps
+    - continuous
+    - continuity
+    - data loss
+    - time gap
+    - time gaps
+    - missing time
+    - dropped data
+    log_type: null
+    field_index: null
+    bit_position: null
+    analysis_type: direct_handler
+    handler_name: data_gaps
+    description: Check for time gaps in data
+    unit: null
+  receiver_status_summary:
+    keywords:
+    - receiver status
+    - rx status
+    - receiver health
+    - system status
+    - receiver summary
+    - status summary
+    log_type: RXSTATUS
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Summarize receiver status records
+    unit: null
+  tracking_status_summary:
+    keywords:
+    - tracking status
+    - tracking
+    - satellite tracking
+    - track
+    - tracking summary
+    - channel status
+    log_type: TRACKSTAT
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Summarize satellite tracking status
+    unit: null
+  position_summary:
+    keywords:
+    - position
+    - coordinates
+    - location
+    - pos
+    - position summary
+    - coordinate summary
+    log_type: BESTPOS
+    field_index: null
+    bit_position: null
+    analysis_type: raw_listing
+    description: Summarize position records
+    unit: null
+fallback_mappings:
+  detection:
+  - RXSTATUS
+  - ITDETECTSTATUS
+  - RXSTATUSEVENT
+  position:
+  - BESTPOS
+  - BESTGNSSPOS
+  - PSRPOS
+  velocity:
+  - BESTVEL
+  - BESTGNSSVEL
+  - PSRVEL
+  signal:
+  - TRACKSTAT
+  - SATVIS
+  - RANGE
+  time:
+  - CLOCKSTEERING
+  - TIMESYNC
+  - TIME
+  ins:
+  - INSPVA
+  - INSPVAX
+  - INSPOSX
+  heading:
+  - HEADING2
+  - HEADING
+  - DUALANTENNAHEADING

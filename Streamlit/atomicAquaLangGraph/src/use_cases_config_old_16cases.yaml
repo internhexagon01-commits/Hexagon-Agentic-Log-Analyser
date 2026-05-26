@@ -1,0 +1,299 @@
+use_cases:
+  spoofing_detection:
+    keywords:
+    - spoofing
+    - spoof
+    - spoofed
+    - fake signal
+    - spoofing detected
+    - spoofing detection
+    - any spoofing
+    - check spoofing
+    - detect spoofing
+    - spoofer present
+    - spoofing event
+    - spoofing attack
+    log_type: RXSTATUS
+    field_index: 4
+    bit_position: 9
+    analysis_type: bit_check
+    description: Detect spoofing events from RXSTATUS receiver status word (bit 9)
+    unit: null
+  jamming_detection:
+    keywords:
+    - jamming
+    - jammer
+    - jam
+    - jammed
+    - jamming detected
+    - jamming detection
+    - any jamming
+    - check jamming
+    - detect jamming
+    - jammer present
+    - jamming event
+    log_type: RXSTATUS
+    field_index: 4
+    bit_position: 15
+    analysis_type: bit_check
+    description: Detect jamming events from RXSTATUS receiver status word (bit 15)
+    unit: null
+  antenna_error:
+    keywords:
+    - antenna
+    - antenna error
+    - antenna issue
+    - antenna problem
+    - antenna fault
+    - antenna status
+    - antenna open
+    - antenna short
+    - antenna disconnected
+    - antenna failure
+    - antenna power
+    log_type: RXSTATUS
+    field_index: 4
+    bit_position: 5
+    analysis_type: bit_check
+    description: Detect antenna errors from RXSTATUS (bit 5 - antenna not powered/open/short)
+    unit: null
+  interference_detection:
+    keywords:
+    - interference
+    - interfere
+    - RF interference
+    - spectrum
+    - interference detected
+    - interference detection
+    - any interference
+    - check interference
+    - detect interference
+    - rf jamming
+    - narrowband interference
+    - wideband interference
+    log_type: ITDETECTSTATUS
+    field_index: 2
+    bit_position: null
+    analysis_type: raw_listing
+    description: Detect RF interference from ITDETECTSTATUS log (full analysis)
+    unit: null
+    special_handler: interference_analysis
+  height_analysis:
+    keywords:
+    - height
+    - altitude
+    - elevation
+    - vertical
+    - height field
+    - altitude field
+    - minimum height
+    - maximum height
+    - average height
+    - min height
+    - max height
+    - lowest height
+    - highest height
+    log_type: BESTPOS
+    field_index: 6
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze height/altitude from BESTPOS
+    unit: m
+  latitude_analysis:
+    keywords:
+    - latitude
+    - lat
+    - north
+    - south
+    - latitude field
+    - minimum latitude
+    - maximum latitude
+    - average latitude
+    log_type: BESTPOS
+    field_index: 4
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze latitude from BESTPOS
+    unit: degrees
+  longitude_analysis:
+    keywords:
+    - longitude
+    - lon
+    - long
+    - east
+    - west
+    - longitude field
+    - minimum longitude
+    - maximum longitude
+    - average longitude
+    log_type: BESTPOS
+    field_index: 5
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze longitude from BESTPOS
+    unit: degrees
+  velocity_analysis:
+    keywords:
+    - velocity
+    - speed
+    - horizontal speed
+    - ground speed
+    - minimum velocity
+    - maximum velocity
+    - average velocity
+    - min speed
+    - max speed
+    - fastest
+    - slowest
+    log_type: BESTVEL
+    field_index: 6
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze horizontal velocity from BESTVEL
+    unit: m/s
+  signal_quality:
+    keywords:
+    - signal
+    - signal quality
+    - signal strength
+    - C/No
+    - CNO
+    - cno
+    - carrier to noise
+    - signal level
+    - signal power
+    - scintillation
+    - signal fade
+    - signal degradation
+    - minimum signal
+    - maximum signal
+    - lowest signal
+    - weakest signal
+    - average signal
+    - mean signal
+    log_type: TRACKSTAT
+    field_index: 10
+    bit_position: null
+    analysis_type: raw_listing
+    special_handler: trackstat_cno_analysis
+    description: Analyze signal quality (C/No) from TRACKSTAT - complex multi-satellite log
+    unit: dB-Hz
+  highest_cno:
+    keywords:
+    - highest cno
+    - highest c/no
+    - maximum cno
+    - maximum c/no
+    - max cno
+    - max c/no
+    - best signal
+    - strongest signal
+    - highest signal
+    - peak signal
+    log_type: TRACKSTAT
+    field_index: 10
+    bit_position: null
+    analysis_type: raw_listing
+    special_handler: trackstat_cno_max
+    description: Find highest C/No value from TRACKSTAT
+    unit: dB-Hz
+  lowest_cno:
+    keywords:
+    - lowest cno
+    - lowest c/no
+    - minimum cno
+    - minimum c/no
+    - min cno
+    - min c/no
+    - worst signal
+    - weakest signal
+    log_type: TRACKSTAT
+    field_index: 10
+    bit_position: null
+    analysis_type: raw_listing
+    special_handler: trackstat_cno_min
+    description: Find lowest C/No value from TRACKSTAT
+    unit: dB-Hz
+  roll_analysis:
+    keywords:
+    - roll
+    - roll angle
+    - bank
+    - bank angle
+    - roll rate
+    - minimum roll
+    - maximum roll
+    - average roll
+    log_type: INSPVA
+    field_index: 4
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze roll angle from INSPVA
+    unit: degrees
+  pitch_analysis:
+    keywords:
+    - pitch
+    - pitch angle
+    - nose up
+    - nose down
+    - pitch rate
+    - minimum pitch
+    - maximum pitch
+    - average pitch
+    log_type: INSPVA
+    field_index: 5
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze pitch angle from INSPVA
+    unit: degrees
+  azimuth_analysis:
+    keywords:
+    - azimuth
+    - heading
+    - direction
+    - course
+    - bearing
+    - true heading
+    - magnetic heading
+    - azimuth angle
+    log_type: INSPVA
+    field_index: 6
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze azimuth/heading from INSPVA
+    unit: degrees
+  heading_analysis:
+    keywords:
+    - heading
+    - heading2
+    - dual antenna heading
+    - baseline heading
+    - antenna heading
+    - heading angle
+    - heading accuracy
+    log_type: HEADING2
+    field_index: 4
+    bit_position: null
+    analysis_type: numeric_stat
+    description: Analyze heading from HEADING2
+    unit: degrees
+
+  bestpos_overview:
+    keywords:
+    - overview
+    - summary
+    - summarize
+    - show me
+    - what's in
+    - analyze file
+    - file overview
+    - file summary
+    - bestpos overview
+    - position overview
+    - position summary
+    log_type: BESTPOS
+    field_index: 2
+    bit_position: null
+    analysis_type: raw_listing
+    description: Show overview/summary of BESTPOS position records
+    unit: null
