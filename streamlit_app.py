@@ -486,7 +486,7 @@ for role, msg in st.session_state.chat:
 
 # ── Paperclip file uploader ───────────────────────────────────────────
 uploaded_file = st.file_uploader(
-    "Upload file", type=["txt", "log", "ascii","abbrev_ascii", "dat", "bin", "json", "csv","gpf","gps","ASCII","ABBREV_ASCII"],
+    "Upload file", type=["txt", "log", "ascii", "abbrev_ascii", "dat", "bin", "json", "csv", "gpf", "gps"],
     key="file_upload", label_visibility="collapsed"
 )
 
@@ -536,19 +536,26 @@ if st.session_state.pending_upload:
     import threading, time
     # Capture session_id NOW on the main thread — background threads cannot access st.session_state
     file_session_id = st.session_state.session_id
+
+    # Show immediate feedback BEFORE processing starts
+    file_status_placeholder = st.empty()
+    with file_status_placeholder.container():
+        with st.chat_message("assistant", avatar="🛰"):
+            st.markdown(f"*📂 Parsing {file_name} ({file_size/1024:.0f} KB)...*")
+
     result_container = {"response": None, "done": False}
 
     def run_file_agent():
         try:
             if file_size <= SIZE_THRESHOLD:
                 file_b64 = base64.b64encode(file_bytes).decode("utf-8")
-                result_container["response"] = run_async(agent_invoke({
+                result_container["response"] = asyncio.run(agent_invoke({
                     "file": file_b64, "filename": file_name,
                     "session_id": file_session_id,
                 }))
             else:
                 s3_key = upload_to_s3_with_progress(file_bytes, file_name)
-                result_container["response"] = run_async(agent_invoke({
+                result_container["response"] = asyncio.run(agent_invoke({
                     "s3_key": s3_key, "filename": file_name,
                     "session_id": file_session_id,
                 }))
@@ -561,9 +568,8 @@ if st.session_state.pending_upload:
     file_thread = threading.Thread(target=run_file_agent, daemon=True)
     file_thread.start()
 
-    # Poll for status while processing
-    file_status_placeholder = st.empty()
-    last_status = ""
+    # Poll for status while processing (reuse the placeholder created above)
+    last_status = f"📂 Parsing {file_name} ({file_size/1024:.0f} KB)..."
     while not result_container["done"]:
         current_status = agent_get_status(file_session_id)
         if not current_status:
